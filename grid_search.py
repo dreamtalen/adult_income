@@ -30,7 +30,7 @@ test_X = preprocessing.scale(test_X)
 # test_X = preprocessing.normalize(test_X)
 
 parameters = {"kernel": ["rbf"], "C": np.logspace(-9, 20, 30, base=2), "gamma": np.logspace(-14, 15, 30, base=2)}
-clf = GridSearchCV(svm.SVC(cache_size=1000), parameters, n_jobs=-1)
+clf = GridSearchCV(svm.SVC(cache_size=1000), parameters, n_jobs=8)
 # print clf
 # clf.fit(X, y)
 clf.fit(X, y)
