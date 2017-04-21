@@ -34,8 +34,9 @@ test_X = preprocessing.scale(test_X)
 # normalize the data attributes
 # test_X = preprocessing.normalize(test_X)
 
-
-clf = SVC(kernel=args.argument, cache_size=4000) #86%
+c = 16777216
+gamma = 3.725290298461914e-09
+clf = SVC(kernel=args.argument, cache_size=4000, C=c, gamma=gamma) #86%
 # print clf
 # clf.fit(X, y)
 clf.fit(X, y)
@@ -47,4 +48,4 @@ wrong_num = sum(1 for i, j in zip(predicted, test_y) if i != j)
 # print wrong_num
 accurate = 1 - wrong_num/float(test_set_size)
 with open('result.log', 'a') as f:
-    f.write(args.argument + ' '+ str(train_set_size) + '/' + str(test_set_size) + ' accurate: ' + str(accurate) + '\n')
+    f.write(args.argument + ' '+ str(train_set_size) + '/' + str(test_set_size) + ' accurate: ' + str(accurate) + ' c=' + str(c) +' gamma=' + str(gamma) + '\n')
