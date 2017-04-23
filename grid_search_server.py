@@ -3,7 +3,8 @@ from sklearn import svm
 from sklearn import preprocessing
 from sklearn.model_selection import GridSearchCV
 import math
-import matplotlib.pyplot as plt
+import pickle
+
 train_set = np.loadtxt('adult.data.csv', delimiter=',')
 test_set = np.loadtxt('adult.test.csv', delimiter=',')
 
@@ -51,28 +52,7 @@ print clf.best_params_
 print math.log(clf.best_params_['C'], 2), math.log(clf.best_params_['gamma'], 2)
 print clf.best_score_
 
-score_dict = [[[] for i in range(len(gamma_list))] for i in range(len(C_list))]
+with open('search_result.pkl', 'wb') as f:
+    pickle.dump(clf.cv_results_, f)
 
-c_value_list, gamma_value_list = [], []
-for index, para in enumerate(clf.cv_results_['params']):
-    c = para['C']
-    gamma = para['gamma']
-    score = clf.cv_results_['mean_test_score'][index]
-    # if c not in c_value_list:   c_value_list.append(c)
-    # if gamma not in gamma_value_list:   gamma_value_list.append(gamma)
-    # score_dict[c_value_list.index(c)][gamma_value_list.index(gamma)] = score
-    score_dict[C_list.index(int(math.log(c, 2)))][gamma_list.index(int(math.log(gamma, 2)))] =  score
-
-# CS = plt.contour(gamma_value_list, c_value_list, score_dict)
-CS = plt.contour(gamma_list, C_list, score_dict)
-# manual_locations = [(int(math.log(clf.best_params_['gamma'], 2)), int(math.log(clf.best_params_['C'], 2)))]
-plt.clabel(CS, inline=1, fontsize=10)
-# plt.semilogx(gamma_value_list, c_value_list)
-plt.xlabel('log(gamma)')
-plt.ylabel('log(C)')
-plt.savefig('grid_search_C_'+str(C_list[0])+'_'+str(C_list[-1])+'_gamma_'+str(gamma_list[0])+'_'+str(gamma_list[-1])+'_number'+str(train_set_size)+'.png')
-# predicted = clf.predict(test_X)
-# time.sleep(100)
-# wrong_num = sum(1 for i, j in zip(predicted, test_y) if i != j)
-
-# accurate = 1 - wrong_num/float(test_set_size)
+print clf.cv_results_
