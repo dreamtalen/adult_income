@@ -2,10 +2,8 @@ import numpy as np
 from sklearn import svm
 from sklearn import preprocessing
 from sklearn.model_selection import GridSearchCV
-import pandas as pd
 import math
 import matplotlib.pyplot as plt
-import time
 train_set = np.loadtxt('adult.data.csv', delimiter=',')
 test_set = np.loadtxt('adult.test.csv', delimiter=',')
 
