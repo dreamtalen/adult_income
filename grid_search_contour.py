@@ -9,7 +9,12 @@ import time
 train_set = np.loadtxt('adult.data.csv', delimiter=',')
 test_set = np.loadtxt('adult.test.csv', delimiter=',')
 
-train_set_size = 3000
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('train_set_size')
+args = parser.parse_args()
+
+train_set_size = int(args.train_set_size)
 test_set_size = 1000
 
 X = train_set[:train_set_size, :-1]
@@ -37,7 +42,7 @@ C_list = range(-5, 30)
 gamma_list = range(-30, 5)
 
 parameters = {"C": [2**i for i in C_list], "gamma": [2**i for i in gamma_list]}
-clf = GridSearchCV(svm.SVC(cache_size=1000), parameters, n_jobs=-1)
+clf = GridSearchCV(svm.SVC(cache_size=1000), parameters, n_jobs=8)
 # print clf
 # clf.fit(X, y)
 clf.fit(X, y)
@@ -67,7 +72,7 @@ plt.clabel(CS, inline=1, fontsize=10)
 # plt.semilogx(gamma_value_list, c_value_list)
 plt.xlabel('log(gamma)')
 plt.ylabel('log(C)')
-plt.savefig('grid_search'+str(C_list[0])+'_'+str(C_list[-1])+'gamma'+str(gamma_list[0])+'_'+str(gamma_list[-1])+'.png')
+plt.savefig('grid_search_C_'+str(C_list[0])+'_'+str(C_list[-1])+'_gamma_'+str(gamma_list[0])+'_'+str(gamma_list[-1])+'_number'+str(train_set_size)+'.png')
 plt.show()
 # predicted = clf.predict(test_X)
 # time.sleep(100)
