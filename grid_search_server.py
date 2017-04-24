@@ -39,9 +39,9 @@ test_X = preprocessing.scale(test_X)
 # gamma_list = [i/2.0 for i in range(-9, -3)]
 
 # C_list = range(-5, 30)
-C_list = [0, 1, 3, 5, 7]
+C_list = range(8, 20)
 # gamma_list = range(-30, 5)
-gamma_list = [-6, -7, -8, -9, -10]
+gamma_list = [-5, -6, -7]
 
 parameters = {"C": [2**i for i in C_list], "gamma": [2**i for i in gamma_list]}
 clf = GridSearchCV(svm.SVC(cache_size=1000), parameters, n_jobs=8)
@@ -55,7 +55,7 @@ print clf.best_params_
 print math.log(clf.best_params_['C'], 2), math.log(clf.best_params_['gamma'], 2)
 print clf.best_score_
 
-with open('search_result' + args.train_set_size + '.pkl', 'wb') as f:
+with open('search_result'+str(C_list[0])+'_'+str(C_list[-1])+'_gamma_'+str(gamma_list[0])+'_'+str(gamma_list[-1])+'_number'+str(train_set_size)+'.pkl', 'wb') as f:
     pickle.dump(clf.cv_results_, f)
 
 # print clf.cv_results_

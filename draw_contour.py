@@ -2,16 +2,17 @@ import matplotlib.pyplot as plt
 import pickle
 import math
 
-with open('search_result.pkl', 'rb') as f:
+with open('search_result30000.pkl', 'rb') as f:
     cv_results_ = pickle.load(f)
 
 # print cv_results_
 
 train_set_size = 100
 
-C_list = range(-5, 30)
-gamma_list = range(-30, 5)
-
+# C_list = range(-5, 30)
+# gamma_list = range(-30, 5)
+C_list = [0, 1, 3, 5, 7]
+gamma_list = [-6, -7, -8, -9, -10]
 score_dict = [[[] for i in range(len(gamma_list))] for i in range(len(C_list))]
 
 max_score = 0

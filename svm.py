@@ -34,7 +34,7 @@ test_X = preprocessing.scale(test_X)
 # normalize the data attributes
 # test_X = preprocessing.normalize(test_X)
 
-c = 32
+c = 128
 gamma = 0.0078125
 clf = SVC(kernel=args.argument, cache_size=4000, C=c, gamma=gamma) #86%
 # print clf
