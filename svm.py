@@ -34,8 +34,8 @@ test_X = preprocessing.scale(test_X)
 # normalize the data attributes
 # test_X = preprocessing.normalize(test_X)
 
-c = 16777216
-gamma = 3.725290298461914e-09
+c = 32
+gamma = 0.0078125
 clf = SVC(kernel=args.argument, cache_size=4000, C=c, gamma=gamma) #86%
 # print clf
 # clf.fit(X, y)
