@@ -39,9 +39,9 @@ test_X = preprocessing.scale(test_X)
 # gamma_list = [i/2.0 for i in range(-9, -3)]
 
 # C_list = range(-5, 30)
-C_list = range(8, 20)
+C_list = [i*2 for i in range(4, 10)]
 # gamma_list = range(-30, 5)
-gamma_list = [-5, -6, -7]
+gamma_list = [-7]
 
 parameters = {"C": [2**i for i in C_list], "gamma": [2**i for i in gamma_list]}
 clf = GridSearchCV(svm.SVC(cache_size=1000), parameters, n_jobs=8)
