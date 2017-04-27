@@ -1,7 +1,7 @@
 import csv
 
 def data_processing(filename):
-    # a = [i.strip() for i in str.split(',')]
+    # Map the categorical attributes in the data set to number
     workclass_list = ["Private", "Self-emp-not-inc", "Self-emp-inc", "Federal-gov", "Local-gov", "State-gov", "Without-pay", "Never-worked"]
     workclass_dict = {i:workclass_list.index(i) for i in workclass_list}
     education_list = ["Bachelors", "Some-college", "11th", "HS-grad", "Prof-school", "Assoc-acdm", "Assoc-voc", "9th", "7th-8th", "12th", "Masters", "1st-4th", "10th", "Doctorate", "5th-6th", "Preschool"]
@@ -18,12 +18,12 @@ def data_processing(filename):
     sex_dict = {i:sex_list.index(i) for i in sex_list}
     country_list = ['United-States', 'Cambodia', 'England', 'Puerto-Rico', 'Canada', 'Germany', 'Outlying-US(Guam-USVI-etc)', 'India', 'Japan', 'Greece', 'South', 'China', 'Cuba', 'Iran', 'Honduras', 'Philippines', 'Italy', 'Poland', 'Jamaica', 'Vietnam', 'Mexico', 'Portugal', 'Ireland', 'France', 'Dominican-Republic', 'Laos', 'Ecuador', 'Taiwan', 'Haiti', 'Columbia', 'Hungary', 'Guatemala', 'Nicaragua', 'Scotland', 'Thailand', 'Yugoslavia', 'El-Salvador', 'Trinadad&Tobago', 'Peru', 'Hong', 'Holand-Netherlands']
     country_dict = {i:country_list.index(i) for i in country_list}
-    # income_list = [">50K", "<=50K"]
     income_dict = {">50K":0, "<=50K":1, ">50K.":0, "<=50K.":1}
 
     dict_list = [{}, workclass_dict, {}, education_dict, {}, marital_dict, occupation_dict, relationship_dict, race_dict, sex_dict, {}, {}, {}, country_dict, income_dict]
 
     with open(filename) as f:
+        # Format the data into a .csv file.
         with open(filename + '.csv', 'w') as output:
             writer = csv.writer(output)
             for i in f.readlines():

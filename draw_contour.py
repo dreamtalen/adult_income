@@ -2,22 +2,20 @@ import matplotlib.pyplot as plt
 import pickle
 import math
 
-with open('search_result30000.pkl', 'rb') as f:
+# Open the grid_search result
+with open('search_result.pkl', 'rb') as f:
     cv_results_ = pickle.load(f)
 
-# print cv_results_
+train_set_size = 3000
 
-train_set_size = 100
-
-# C_list = range(-5, 30)
-# gamma_list = range(-30, 5)
-C_list = [0, 1, 3, 5, 7]
-gamma_list = [-6, -7, -8, -9, -10]
+C_list = range(-5, 30)
+gamma_list = range(-30, 5)
 score_dict = [[[] for i in range(len(gamma_list))] for i in range(len(C_list))]
 
 max_score = 0
 best_c, best_gamma = 0, 0
 
+# Get the accuracy of each parameters combination
 c_value_list, gamma_value_list = [], []
 for index, para in enumerate(cv_results_['params']):
     c = para['C']
@@ -29,10 +27,7 @@ for index, para in enumerate(cv_results_['params']):
         best_gamma = gamma
     score_dict[C_list.index(int(math.log(c, 2)))][gamma_list.index(int(math.log(gamma, 2)))] =  score
 
-print max_score
-print best_c, best_gamma
-
-# print score_dict
+# Draw contour
 CS = plt.contour(gamma_list, C_list, score_dict)
 
 plt.clabel(CS, inline=1, fontsize=10)
